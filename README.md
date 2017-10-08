@@ -1,12 +1,19 @@
 # java-modules-context-boot
 Simple framework to boot a spring context within each java platform module
 
+1. [Requirements](#requirements)
+2. [Maven Dependency](#maven-dependency)
+3. [Define a spring context within a module](#define-a-spring-context-within-a-module)
+4. [Starting the application](#starting-the-application)
+5. [Integrating modules using services](#integrating-modules-using-services)
+6. [Samples](#samples)
+
 ## Requirements
 
 - uses Spring 5.0.0 as automatic modules
 - build and run using jdk9 on the modulepath
 
-## Dependency
+## Maven Dependency
 
 The dependency to use is
 
