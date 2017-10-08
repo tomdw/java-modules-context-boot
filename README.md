@@ -1,2 +1,2 @@
-# java-modules-spring-context
-Simple framework to boot a spring context within java platform modules
+# java-modules-context-boot
+Simple framework to boot a spring context within each java platform module
