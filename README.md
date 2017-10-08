@@ -38,7 +38,7 @@ To define a spring context within a java module, you need to:
  
 For example:
 
-```java
+```
 @be.tomdewolf.jpms.context.boot.api.ModuleContext(
 	mainConfigurationClass = be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal.SpeakerConfiguration.class
 )
@@ -104,7 +104,7 @@ the spring application context associated with the module calling the provide me
 ### Reference a module service from another spring context
 
 Using a service in another module can simply be done by annotating with @ModuleServiceReference:
-```java
+```
 @Named
 public class MessageGenerator {
 
