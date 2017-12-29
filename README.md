@@ -8,6 +8,8 @@ Simple framework to boot a spring context within each java platform module
 5. [Integrating modules using services](#integrating-modules-using-services)
 6. [Samples](#samples)
 
+The [Boot Spring Context within each Java 9 Module](https://devcreativity.wordpress.com/2017/11/18/boot-spring-context-within-each-java-9-module/) blog post describes the approach in detail. 
+
 ## Requirements
 
 - uses Spring 5.0.0 as automatic modules
