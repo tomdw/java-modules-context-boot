@@ -1,11 +1,13 @@
-@be.tomdewolf.jpms.context.boot.api.ModuleContext(
-	mainConfigurationClass = be.tomdewolf.jpms.context.boot.samples.basicapplication.internal.MainApplicationConfiguration.class
-)
-module be.tomdewolf.jpms.context.boot.samples.basicapplication.application {
-	requires be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker;
-	requires be.tomdewolf.jpms.context.boot;
+import be.tomdw.java.modules.spring.samples.basicapplication.internal.MainApplicationConfiguration;
+import be.tomdw.java.modules.context.boot.api.ModuleContext;
+import be.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 
-	opens be.tomdewolf.jpms.context.boot.samples.basicapplication.internal to spring.beans, spring.core, spring.context;
+@ModuleContext(mainConfigurationClass = MainApplicationConfiguration.class)
+module be.tomdw.java.modules.spring.samples.basicapplication.application {
+	requires be.tomdw.java.modules.spring.samples.basicapplication.speaker;
+	requires be.tomdw.java.modules.context.boot;
 
-	uses be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.api.SpeakerService;
+	opens be.tomdw.java.modules.spring.samples.basicapplication.internal to spring.beans, spring.core, spring.context;
+
+	uses SpeakerService;
 }

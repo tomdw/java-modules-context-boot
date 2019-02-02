@@ -1,12 +1,15 @@
-@be.tomdewolf.jpms.context.boot.api.ModuleContext(
-	mainConfigurationClass = be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal.SpeakerConfiguration.class
-)
-module be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker {
-	exports be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.api;
-	requires be.tomdewolf.jpms.context.boot;
+import be.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
+import be.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.SpeakerConfiguration;
+import be.tomdw.java.modules.context.boot.api.ModuleContext;
+import be.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.DefaultSpeakerService;
 
-	provides be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.api.SpeakerService with be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal.DefaultSpeakerService;
+@ModuleContext(mainConfigurationClass = SpeakerConfiguration.class)
+module be.tomdw.java.modules.spring.samples.basicapplication.speaker {
+	exports be.tomdw.java.modules.spring.samples.basicapplication.speaker.api;
+	requires be.tomdw.java.modules.context.boot;
 
-	opens be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
+	provides SpeakerService with DefaultSpeakerService;
+
+	opens be.tomdw.java.modules.spring.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
 
 }

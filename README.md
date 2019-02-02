@@ -21,49 +21,49 @@ The dependency to use is
 
 ```xml
 <dependency>
-	<groupId>be.tomdewolf.jpms.context.boot</groupId>
-	<artifactId>jpms-context-boot</artifactId>
+	<groupId>be.tomdw.java.modules.spring</groupId>
+	<artifactId>java-modules-context-boot</artifactId>
 	<version>1.0.0</version>
 </dependency>
 ```
 
 which provides you with a java module named 
 
-`be.tomdewolf.jpms.context.boot`
+`be.tomdw.java.modules.context.boot`
 
 transitively providing read access to spring modules and javax.inject.
 
 **WARNING:** javax.inject is an automatic module without a reserved Automatic-Module-Name. 
 No guarantees are given that its name will not change in future. By requiring it transitively 
-client code of jpms-context-boot does not need to require javax.inject and the impact is limited
-to the jpms-context-boot module descriptor.
+client code of java-modules-context-boot does not need to require javax.inject and the impact is limited
+to the java-modules-context-boot module descriptor.
 
 ## Define a spring context within a module
 
 To define a spring context within a java module, you need to:
  - use the ModuleContext annotation on the module pointing to a java-based spring configuration
- - require be.tomdewolf.jpms.context.boot
+ - require be.tomdw.java.modules.context.boot
  - open the package of the module to spring
  
 For example:
 
 ```
-@be.tomdewolf.jpms.context.boot.api.ModuleContext(
-	mainConfigurationClass = be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal.SpeakerConfiguration.class
+@ModuleContext(
+	mainConfigurationClass = SpeakerConfiguration.class
 )
-module be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker {
-	requires be.tomdewolf.jpms.context.boot;
-	opens be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
+module be.tomdw.java.modules.spring.samples.basicapplication.speaker {
+	requires be.tomdw.java.modules.context.boot;
+	opens be.tomdw.java.modules.spring.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
 }
 ```
 
-jpms-context-boot will make sure to start a separate spring context for every module annotated with this annotation.
+java-modules-context-boot will make sure to start a separate spring context for every module annotated with this annotation.
 
 ## Starting the application
 
 ### Using the built-in main class
 
-You can use the be.tomdewolf.jpms.context.boot.api.ModuleContextBooter.main as main method to start the application.
+You can use the be.tomdw.java.modules.context.boot.api.ModuleContextBooter.main as main method to start the application.
 
 Make sure to add the application modules to your module path. For every module on the module path annotated with @ModuleContext
 we boot a spring context.
@@ -73,7 +73,7 @@ we boot a spring context.
 When you want to control when the modules get booted with spring contexts you can call
 
 ```
-be.tomdewolf.jpms.context.boot.api.ModuleContextBooter.boot();
+ModuleContextBooter.boot();
 ```
 from anywhere in your project's code.
 
@@ -86,10 +86,10 @@ following sections describe how to do this between multiple spring contexts in d
 
 To provide a service through the ServiceLoader API you need to add the 'provides' in your module-info:
 ```
-@be.tomdewolf.jpms.context.boot.api.ModuleContext(...)
-module be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker {
+@ModuleContext(...)
+module be.tomdw.java.modules.spring.samples.basicapplication.speaker {
 	...
-	provides be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.api.SpeakerService with be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.internal.DefaultSpeakerService;
+	provides SpeakerService with DefaultSpeakerService;
 	...
 }
 ```
@@ -127,10 +127,10 @@ public class MessageGenerator {
 
 Don't forget to add a 'uses' entry in the module-info:
 ```
-@be.tomdewolf.jpms.context.boot.api.ModuleContext(...)
-module be.tomdewolf.jpms.context.boot.samples.basicapplication.application {
+@ModuleContext(...)
+module be.tomdw.java.modules.spring.samples.basicapplication.application {
 	...
-	uses be.tomdewolf.jpms.context.boot.samples.basicapplication.speaker.api.SpeakerService;
+	uses SpeakerService;
 }
 ```
 
