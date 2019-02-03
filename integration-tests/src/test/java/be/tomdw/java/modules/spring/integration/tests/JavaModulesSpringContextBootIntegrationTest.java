@@ -39,7 +39,7 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void singleServiceFromOtherModuleCanBeInjectedUsingModuleServiceReference() {
-		IntegrationTestConfiguration testConfig = IntegrationTestConfiguration.getApplicationContext().getBean(IntegrationTestConfiguration.class);
+		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
 		assertThat(testConfig).isNotNull();
 
 		assertThat(testConfig.getSpeakerService()).withFailMessage("No SpeakerService injected").isNotNull();
@@ -48,7 +48,7 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void serviceListFromOtherModuleCanBeInjectedUsingModuleServiceReference() {
-		IntegrationTestConfiguration testConfig = IntegrationTestConfiguration.getApplicationContext().getBean(IntegrationTestConfiguration.class);
+		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
 		assertThat(testConfig).isNotNull();
 
 		assertThat(testConfig.getMultipleSpeakerServices()).withFailMessage("No MultipleSpeakerService(s) injected").isNotNull();

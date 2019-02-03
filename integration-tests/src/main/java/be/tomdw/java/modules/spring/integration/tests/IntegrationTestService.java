@@ -13,7 +13,7 @@ import be.tomdw.java.modules.spring.samples.basicapplication.speaker.api.Multipl
 import be.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 
 @Named
-public class IntegrationTestConfiguration implements ApplicationContextAware {
+public class IntegrationTestService implements ApplicationContextAware {
 
 	@ModuleServiceReference
 	private SpeakerService speakerService;
