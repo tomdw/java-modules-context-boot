@@ -5,9 +5,7 @@ import be.tomdw.java.modules.context.boot.internal.ModuleContextRegistry;
 public class ModuleContextBooter {
 
 	public static void boot() {
-		System.out.println("Preparing modular spring application");
-		ModuleContextRegistry.provisionForLayer(ModuleLayer.boot());
-		System.out.println("Booting modular spring application");
+		ModuleContextRegistry.provisionForBootLayer();
 		ModuleContextRegistry.boot();
 	}
 
