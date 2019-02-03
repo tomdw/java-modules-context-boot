@@ -13,6 +13,11 @@ public class DefaultSpeakerService implements SpeakerService {
 	}
 
 	@Override
+	public String getName() {
+		return "Default";
+	}
+
+	@Override
 	public void speak(String message) {
 		System.out.println("Speaker says: " + message);
 	}
