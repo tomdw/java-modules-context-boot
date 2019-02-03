@@ -1,6 +1,6 @@
 package be.tomdw.java.modules.spring.samples.basicapplication.speaker.internal;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DefaultSpeakerServiceTest {
 
