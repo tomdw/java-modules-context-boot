@@ -12,7 +12,6 @@ import be.tomdw.java.modules.spring.samples.basicapplication.speaker.api.Speaker
 public class MessageGenerator implements InitializingBean {
 
 	@ModuleServiceReference
-	@Inject
 	private SpeakerService speakerService;
 
 	@Override
