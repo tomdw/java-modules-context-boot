@@ -99,7 +99,7 @@ public class ModuleServiceReferenceAnnotationPostProcessor extends Instantiation
 	}
 
 	private void validateNamedOrQualifierAnnotationPresent(Field field, Class<?> serviceType) {
-		if(getNamedOrQualifierValue(field).isEmpty()) {
+		if(getNamedOrQualifierValue(field).isEmpty() || !getNamedOrQualifierValue(field).orElseThrow().equals(serviceListFactoryBeanName(serviceType))) {
 			LOGGER.log(ERROR, "Injecting a list of " + serviceType.getName() + " requires a Qualifier or Named annotation with value " + serviceListFactoryBeanName(serviceType));
 			throw new IllegalStateException("Injecting a list of " + serviceType.getName() + " requires a Qualifier or Named annotation with value " + serviceListFactoryBeanName(serviceType));
 		}
