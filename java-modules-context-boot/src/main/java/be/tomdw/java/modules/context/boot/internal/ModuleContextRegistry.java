@@ -133,6 +133,6 @@ public class ModuleContextRegistry {
 	}
 
 	public static GenericApplicationContext getContextFor(Module module) {
-		return moduleContexts.get(module);
+		return get(module);
 	}
 }
