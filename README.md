@@ -1,5 +1,5 @@
 # java-modules-context-boot
-Simple framework to boot a spring context within each java platform module
+Simple framework to boot a spring context within each java module
 
 1. [Requirements](#requirements)
 2. [Maven Dependency](#maven-dependency)
@@ -8,12 +8,12 @@ Simple framework to boot a spring context within each java platform module
 5. [Integrating modules using services](#integrating-modules-using-services)
 6. [Samples](#samples)
 
-The [Boot Spring Context within each Java 9 Module](https://devcreativity.wordpress.com/2017/11/18/boot-spring-context-within-each-java-9-module/) blog post describes the approach in detail. 
+The [Boot Spring Context within each Java 11 Module](https://devcreativity.wordpress.com/2017/11/18/boot-spring-context-within-each-java-9-module/) blog post describes the approach in detail. 
 
 ## Requirements
 
-- uses Spring 5.0.0 as automatic modules
-- build and run using jdk9 on the modulepath
+- uses Spring 5.1.3.RELEASE as automatic modules
+- build and run using jdk11 on the modulepath
 
 ## Maven Dependency
 
@@ -58,6 +58,10 @@ module be.tomdw.java.modules.spring.samples.basicapplication.speaker {
 ```
 
 java-modules-context-boot will make sure to start a separate spring context for every module annotated with this annotation.
+
+If you would like to use another `ApplicationContext` than the default `AnnotationConfigApplicationContext` you can specify the class using the `applicationContextClass` parameter of the `@ModuleContext` annotation. This class should extend `GenericApplicationContext` and implement the `AnnotationConfigRegistry` interface.
+
+This could be useful when you want to use a Spring Boot specific ApplicationContext that contains starters. For example an application context supporting web servlets such as `org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext`. 
 
 ## Starting the application
 
@@ -118,7 +122,6 @@ Using a service in another module can simply be done by annotating with @ModuleS
 public class MessageGenerator {
 
 	@ModuleServiceReference
-	@Inject
 	private SpeakerService speakerService;
 
 }
@@ -137,7 +140,27 @@ module be.tomdw.java.modules.spring.samples.basicapplication.application {
 Every spring context is enriched with a processor to retrieve the necessary services 
 through the ServiceLoader API and make them available for injection in the spring context of that module.
 
+### Reference a list of module services from another spring context
+
+Similar to using a single service, the annotation @ModuleServiceReference can be used to inject a list of all services that implement a certain interface.
+```
+@Named
+public class MessageGenerator {
+
+	@ModuleServiceReference
+	@Named("speakerServiceList")
+	private List<SpeakerService> speakerService;
+
+}
+
+```
+
+The difference is that we cannot inject by type, because of generics limitations a list of speakerServices are not known by spring to inject.
+To support this, we are registring the list of provided services with a bean name. By convention this name will be the type of the services suffixed by "List".
+When injecting the service list you should use the @Named or @Qualifier annotation to specify the name following this naming convention.
+
 ## Samples
 - Under 'samples' the 'basicapplication' sample shows this in a working hello world application.
 	- follow the instructions regarding the java toolchains from the [java-modules-parent project](https://github.com/tomdw/java-modules-parent)
 	- start the application using 'mvn toolchains:toolchain exec:exec' from within the 'basicapplication/application' module.
+  
