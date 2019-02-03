@@ -1,9 +1,9 @@
-module be.tomdw.java.modules.context.boot {
-	exports be.tomdw.java.modules.context.boot.api;
+module io.github.tomdw.java.modules.context.boot {
+	exports io.github.tomdw.java.modules.context.boot.api;
 	requires transitive spring.context;
 	requires transitive spring.beans;
 	requires transitive spring.core;
 	requires transitive javax.inject;
 
-	opens be.tomdw.java.modules.context.boot.internal to spring.beans, spring.core, spring.context;
+	opens io.github.tomdw.java.modules.context.boot.internal to spring.beans, spring.core, spring.context;
 }

@@ -21,7 +21,7 @@ The dependency to use is
 
 ```xml
 <dependency>
-	<groupId>be.tomdw.java.modules.spring</groupId>
+	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot</artifactId>
 	<version>1.0.0</version>
 </dependency>
@@ -29,7 +29,7 @@ The dependency to use is
 
 which provides you with a java module named 
 
-`be.tomdw.java.modules.context.boot`
+`io.github.tomdw.java.modules.context.boot`
 
 transitively providing read access to spring modules and javax.inject.
 
@@ -42,7 +42,7 @@ to the java-modules-context-boot module descriptor.
 
 To define a spring context within a java module, you need to:
  - use the ModuleContext annotation on the module pointing to a java-based spring configuration
- - require be.tomdw.java.modules.context.boot
+ - require io.github.tomdw.java.modules.context.boot
  - open the package of the module to spring
  
 For example:
@@ -51,9 +51,9 @@ For example:
 @ModuleContext(
 	mainConfigurationClass = SpeakerConfiguration.class
 )
-module be.tomdw.java.modules.spring.samples.basicapplication.speaker {
-	requires be.tomdw.java.modules.context.boot;
-	opens be.tomdw.java.modules.spring.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
+module io.github.tomdw.java.modules.spring.samples.basicapplication.speaker {
+	requires io.github.tomdw.java.modules.context.boot;
+	opens io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
 }
 ```
 
@@ -67,7 +67,7 @@ This could be useful when you want to use a Spring Boot specific ApplicationCont
 
 ### Using the built-in main class
 
-You can use the be.tomdw.java.modules.context.boot.api.ModuleContextBooter.main as main method to start the application.
+You can use the ModuleContextBooter.main as main method to start the application.
 
 Make sure to add the application modules to your module path. For every module on the module path annotated with @ModuleContext
 we boot a spring context.
@@ -91,7 +91,7 @@ following sections describe how to do this between multiple spring contexts in d
 To provide a service through the ServiceLoader API you need to add the 'provides' in your module-info:
 ```
 @ModuleContext(...)
-module be.tomdw.java.modules.spring.samples.basicapplication.speaker {
+module io.github.tomdw.java.modules.spring.samples.basicapplication.speaker {
 	...
 	provides SpeakerService with DefaultSpeakerService;
 	...
@@ -131,7 +131,7 @@ public class MessageGenerator {
 Don't forget to add a 'uses' entry in the module-info:
 ```
 @ModuleContext(...)
-module be.tomdw.java.modules.spring.samples.basicapplication.application {
+module io.github.tomdw.java.modules.spring.samples.basicapplication.application {
 	...
 	uses SpeakerService;
 }

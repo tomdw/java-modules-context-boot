@@ -5,13 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>be.tomdw.java.modules</groupId>
+		<groupId>io.github.tomdw.java.modules</groupId>
 		<artifactId>java-modules-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 
-	<groupId>be.tomdw.java.modules.spring</groupId>
+	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot-build</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<modules>
@@ -42,7 +42,7 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>be.tomdw.java.modules.spring</groupId>
+				<groupId>io.github.tomdw.java.modules.spring</groupId>
 				<artifactId>java-modules-context-boot</artifactId>
 				<version>${project.version}</version>
 			</dependency>
