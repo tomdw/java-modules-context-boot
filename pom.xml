@@ -17,6 +17,7 @@
 	<modules>
 		<module>java-modules-context-boot</module>
 		<module>samples</module>
+		<module>integration-tests</module>
 	</modules>
 	<packaging>pom</packaging>
 
