@@ -131,4 +131,8 @@ public class ModuleContextRegistry {
 						.findFirst()
 						.orElseThrow(() -> new UnsupportedOperationException("Can only get an application context for a Module annotated with @ModuleContext")));
 	}
+
+	public static GenericApplicationContext getContextFor(Module module) {
+		return moduleContexts.get(module);
+	}
 }
