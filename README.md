@@ -23,7 +23,7 @@ The dependency to use is
 <dependency>
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1</version>
 </dependency>
 ```
 
