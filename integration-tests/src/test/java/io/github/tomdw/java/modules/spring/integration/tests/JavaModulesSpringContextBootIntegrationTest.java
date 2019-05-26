@@ -55,4 +55,12 @@ public class JavaModulesSpringContextBootIntegrationTest {
 		assertThat(testConfig.getMultipleSpeakerServices().stream().map(MultipleSpeakerService::getName)).containsExactlyInAnyOrder("Default", "Other");
 	}
 
+	@Test
+	public void singleServiceFromOtherModuleCanBeRetrievedSpecificallyOnBeanName() {
+		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
+		assertThat(testConfig).isNotNull();
+
+		assertThat(testConfig.getNamedSpeakerService().getSpeakerName()).isEqualTo("otherNamedSpeakerServiceName");
+	}
+
 }

@@ -48,18 +48,25 @@ public class ModuleContextRegistry {
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass) {
 		LOGGER.log(INFO, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName());
 		GenericApplicationContext context = get();
-		if (!context.isActive()) {
-			LOGGER.log(INFO, "Lazy starting ApplicationContext for module " + serviceClass.getModule().getName());
-			context.refresh();
-		}
+		lazyStartApplicationContextForModule(context, serviceClass.getModule());
 		return context.getBean(serviceClass);
 	}
 
-	public static void provisionForBootLayer() {
-		provisionForLayer(ModuleLayer.boot());
+	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass, String serviceName) {
+		LOGGER.log(INFO, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName() + "with name " + serviceName);
+		GenericApplicationContext context = get();
+		lazyStartApplicationContextForModule(context, serviceClass.getModule());
+		return context.getBean(serviceName, serviceClass);
 	}
 
-	public static void provisionForLayer(ModuleLayer layer) {
+	private static void lazyStartApplicationContextForModule(GenericApplicationContext context, Module module) {
+		if (!context.isActive()) {
+			LOGGER.log(INFO, "Lazy starting ApplicationContext for module " + module.getName());
+			context.refresh();
+		}
+	}
+
+	private static void provisionForLayer(ModuleLayer layer) {
 		LOGGER.log(INFO, "Preparing modular spring application");
 		for (Module module : layer.modules()) {
 			if (module.isAnnotationPresent(ModuleContext.class)) {
@@ -68,7 +75,8 @@ public class ModuleContextRegistry {
 		}
 	}
 
-	public static void boot() {
+	public static void boot(ModuleLayer layer) {
+		provisionForLayer(layer);
 		LOGGER.log(INFO, "Booting modular spring application");
 		synchronized (moduleContexts) {
 			for (Map.Entry<Module, GenericApplicationContext> contextEntry : moduleContexts.entrySet()) {
@@ -82,6 +90,10 @@ public class ModuleContextRegistry {
 				}
 			}
 		}
+	}
+
+	public static void boot() {
+		boot(ModuleLayer.boot());
 	}
 
 	private static GenericApplicationContext prepareApplicationContextFor(Module module) {

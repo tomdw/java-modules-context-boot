@@ -7,7 +7,6 @@ import io.github.tomdw.java.modules.context.boot.internal.ModuleContextRegistry;
 public class ModuleContextBooter {
 
 	public static void boot() {
-		ModuleContextRegistry.provisionForBootLayer();
 		ModuleContextRegistry.boot();
 	}
 
