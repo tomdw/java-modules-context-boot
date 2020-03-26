@@ -12,7 +12,7 @@ The [Boot Spring Context within each Java 11 Module](https://devcreativity.wordp
 
 ## Requirements
 
-- uses Spring 5.1.3.RELEASE as automatic modules
+- uses Spring 5.1.13.RELEASE as automatic modules
 - build and run using jdk11 on the modulepath
 
 ## Maven Dependency
