@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import io.github.tomdw.java.modules.context.boot.api.ModuleServiceReference;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerService;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerWithGenericsService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.NamedSpeakerService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 
@@ -26,6 +27,10 @@ public class IntegrationTestService implements ApplicationContextAware {
 	@ModuleServiceReference
 	private NamedSpeakerService namedSpeakerService;
 
+	@ModuleServiceReference
+	@Named("multipleSpeakerWithGenericsServiceList")
+	private List<MultipleSpeakerWithGenericsService<?>> multipleSpeakerWithGenericsServices;
+
 	private static ApplicationContext applicationContext;
 
 	public List<MultipleSpeakerService> getMultipleSpeakerServices() {
@@ -35,6 +40,8 @@ public class IntegrationTestService implements ApplicationContextAware {
 	public NamedSpeakerService getNamedSpeakerService() {
 		return namedSpeakerService;
 	}
+
+	public List<MultipleSpeakerWithGenericsService<?>> getMultipleSpeakerWithGenericsServices() { return multipleSpeakerWithGenericsServices; }
 
 	public SpeakerService getSpeakerService() {
 		return speakerService;

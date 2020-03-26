@@ -63,4 +63,15 @@ public class JavaModulesSpringContextBootIntegrationTest {
 		assertThat(testConfig.getNamedSpeakerService().getSpeakerName()).isEqualTo("otherNamedSpeakerServiceName");
 	}
 
+	@Test
+	public void serviceListFromOtherModuleWithGenericsCanBeInjectedUsingModuleServiceReference() {
+		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
+		assertThat(testConfig).isNotNull();
+
+		assertThat(testConfig.getMultipleSpeakerWithGenericsServices()).withFailMessage("No MultipleSpeakerWithGenericsService(s) injected").isNotNull();
+		assertThat(testConfig.getMultipleSpeakerWithGenericsServices().get(0).getMultipleSpeakerName()).asString().isEqualTo("myMultipleGenericSpeakerName");
+	}
+
+
+
 }

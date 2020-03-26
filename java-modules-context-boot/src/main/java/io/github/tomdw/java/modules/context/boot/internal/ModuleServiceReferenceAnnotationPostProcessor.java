@@ -58,15 +58,27 @@ public class ModuleServiceReferenceAnnotationPostProcessor extends Instantiation
 	}
 
 	private void registerServiceListFactoryBean(Module usingModule, Field field) {
-		ParameterizedType listGenericType = (ParameterizedType) field.getGenericType();
-		Class<?> serviceType = (Class<?>) listGenericType.getActualTypeArguments()[0];
+		Class<?> serviceType = extractTypeOfField(field);
 		LOGGER.log(INFO, "ModuleServiceReference from module " + usingModule.getName() + " found for service of type List of " + serviceType);
 		validateModuleUsesServiceType(usingModule, serviceType);
 		validateNamedOrQualifierAnnotationPresent(field, serviceType);
 		String newBeanName = serviceListFactoryBeanName(serviceType);
-		if(!this.beanFactory.containsBean(newBeanName)) {
+		if (!this.beanFactory.containsBean(newBeanName)) {
 			registerAbstractServiceFactoryBean(serviceType, newBeanName, new ServiceListFactoryBean());
 		}
+	}
+
+	private Class<?> extractTypeOfField(Field field) {
+		ParameterizedType listGenericType = (ParameterizedType) field.getGenericType();
+		if (checkIfContentOfGenericListHasGenerics(listGenericType)) {
+			return (Class<?>) ((ParameterizedType) listGenericType.getActualTypeArguments()[0]).getRawType();
+		} else {
+			return (Class<?>) listGenericType.getActualTypeArguments()[0];
+		}
+	}
+
+	private boolean checkIfContentOfGenericListHasGenerics(ParameterizedType listGenericType) {
+		return listGenericType.getActualTypeArguments()[0] instanceof ParameterizedType;
 	}
 
 	private String serviceFactoryBeanName(Class<?> serviceType) {

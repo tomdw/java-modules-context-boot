@@ -1,6 +1,7 @@
 import io.github.tomdw.java.modules.context.boot.api.ModuleContext;
 import io.github.tomdw.java.modules.spring.integration.tests.IntegrationTestService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerService;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerWithGenericsService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.NamedSpeakerService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 
@@ -13,6 +14,7 @@ module io.github.tomdw.java.modules.spring.integration.tests {
 	uses SpeakerService;
 	uses MultipleSpeakerService;
 	uses NamedSpeakerService;
+	uses MultipleSpeakerWithGenericsService;
 
 	opens io.github.tomdw.java.modules.spring.integration.tests to spring.beans, spring.core;
 }

@@ -1,7 +1,9 @@
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerService;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerWithGenericsService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.NamedSpeakerService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.DefaultMultipleSpeakerService;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.MultipleSpeakerWithGenericsServiceProvider;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.NamedSpeakerServiceProvider;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.OtherMultipleSpeakerService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal.SpeakerConfiguration;
@@ -16,6 +18,7 @@ module io.github.tomdw.java.modules.spring.samples.basicapplication.speaker {
 	provides SpeakerService with DefaultSpeakerService;
 	provides MultipleSpeakerService with DefaultMultipleSpeakerService, OtherMultipleSpeakerService;
 	provides NamedSpeakerService with NamedSpeakerServiceProvider;
+	provides MultipleSpeakerWithGenericsService with MultipleSpeakerWithGenericsServiceProvider;
 
 	opens io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.internal to spring.beans, spring.core, spring.context;
 
