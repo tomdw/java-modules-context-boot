@@ -1,5 +1,6 @@
 package io.github.tomdw.java.modules.context.boot.internal;
 
+import static java.lang.System.Logger.Level.DEBUG;
 import static java.lang.System.Logger.Level.INFO;
 
 import java.lang.reflect.InvocationTargetException;
@@ -46,14 +47,14 @@ public class ModuleContextRegistry {
 	}
 
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass) {
-		LOGGER.log(INFO, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName());
+		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName());
 		GenericApplicationContext context = get();
 		lazyStartApplicationContextForModule(context, serviceClass.getModule());
 		return context.getBean(serviceClass);
 	}
 
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass, String serviceName) {
-		LOGGER.log(INFO, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName() + "with name " + serviceName);
+		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName() + "with name " + serviceName);
 		GenericApplicationContext context = get();
 		lazyStartApplicationContextForModule(context, serviceClass.getModule());
 		return context.getBean(serviceName, serviceClass);
