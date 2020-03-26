@@ -10,7 +10,7 @@
 
 	<groupId>io.github.tomdw.java.modules.spring.samples.basicapplication</groupId>
 	<artifactId>basic-application</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -79,10 +79,4 @@
 			<artifactId>assertj-core</artifactId>
 		</dependency>
 	</dependencies>
-
-
-
-  <scm>
-    <tag>v0.0.2</tag>
-  </scm>
 </project>
