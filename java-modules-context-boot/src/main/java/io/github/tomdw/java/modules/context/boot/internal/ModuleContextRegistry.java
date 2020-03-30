@@ -28,7 +28,7 @@ public class ModuleContextRegistry {
 	}
 
 	private static GenericApplicationContext get(Module module) {
-		if (module.isAnnotationPresent(ModuleContext.class)) {
+		if (ModuleInfoReader.of(module).isAnnotationPresent(ModuleContext.class)) {
 			GenericApplicationContext contextForModule;
 			synchronized (moduleContexts) {
 				contextForModule = moduleContexts.get(module);
@@ -70,7 +70,7 @@ public class ModuleContextRegistry {
 	private static void provisionForLayer(ModuleLayer layer) {
 		LOGGER.log(INFO, "Preparing modular spring application");
 		for (Module module : layer.modules()) {
-			if (module.isAnnotationPresent(ModuleContext.class)) {
+			if (ModuleInfoReader.of(module).isAnnotationPresent(ModuleContext.class)) {
 				prepareApplicationContextFor(module);
 			}
 		}
@@ -98,7 +98,7 @@ public class ModuleContextRegistry {
 	}
 
 	private static GenericApplicationContext prepareApplicationContextFor(Module module) {
-		ModuleContext moduleContext = module.getAnnotation(ModuleContext.class);
+		ModuleContext moduleContext = ModuleInfoReader.of(module).getAnnotation(ModuleContext.class);
 		Class<?> mainConfigurationClass = moduleContext.mainConfigurationClass();
 		LOGGER.log(INFO, "Preparing ApplicationContext for Module " + module.getName() + " using config class " + mainConfigurationClass.getSimpleName());
 		GenericApplicationContext context = instantiateApplicationContext(moduleContext);
