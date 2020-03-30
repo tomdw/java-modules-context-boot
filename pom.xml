@@ -25,8 +25,8 @@
 		<version.springframework>5.2.5.RELEASE</version.springframework>
 		<spring-boot.version>2.2.6.RELEASE</spring-boot.version>
 		<version.javax.inject>1</version.javax.inject>
-		<version.assertj-core>3.13.2</version.assertj-core>
-		<version.junit-jupiter>5.5.2</version.junit-jupiter>
+		<version.assertj-core>3.15.0</version.assertj-core>
+		<version.junit-jupiter>5.6.1</version.junit-jupiter>
 	</properties>
 
 	<dependencies>
