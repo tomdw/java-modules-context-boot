@@ -77,6 +77,17 @@
 				<version>${version.assertj-core}</version>
 				<scope>test</scope>
 			</dependency>
+			<!-- sample application -->
+			<dependency>
+				<groupId>io.github.tomdw.java.modules.spring.samples.basicapplication</groupId>
+				<artifactId>application</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.tomdw.java.modules.spring.samples.basicapplication</groupId>
+				<artifactId>speaker</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
