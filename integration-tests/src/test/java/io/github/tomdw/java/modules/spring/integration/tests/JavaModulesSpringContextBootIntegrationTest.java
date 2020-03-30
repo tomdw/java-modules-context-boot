@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.GenericApplicationContext;
 
-import io.github.tomdw.java.modules.context.boot.api.ModuleContext;
 import io.github.tomdw.java.modules.context.boot.api.ModuleContextBooter;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerService;
 
@@ -22,11 +21,12 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void createsSpringApplicationContextForEveryModuleWithModuleContextAnnotation() {
-		List<Module> modulesWithModuleContextAnnotation = ModuleLayer.boot().modules().stream().filter(module -> module.isAnnotationPresent(ModuleContext.class)).collect(Collectors.toList());
-		assertThat(modulesWithModuleContextAnnotation.stream().map(Module::getName)).containsExactlyInAnyOrder(
-				"io.github.tomdw.java.modules.spring.samples.basicapplication.application",
+		String[] expectedModuleNames = {"io.github.tomdw.java.modules.spring.samples.basicapplication.application",
 				"io.github.tomdw.java.modules.spring.samples.basicapplication.speaker",
-				"io.github.tomdw.java.modules.spring.integration.tests");
+				"io.github.tomdw.java.modules.spring.integration.tests"};
+		List<Module> modulesWithModuleContextAnnotation = ModuleLayer.boot().modules().stream().filter(module -> List.of(expectedModuleNames).contains(module.getName())).collect(Collectors.toList());
+
+		assertThat(modulesWithModuleContextAnnotation.stream().map(Module::getName)).containsExactlyInAnyOrder(expectedModuleNames);
 
 		modulesWithModuleContextAnnotation.forEach(
 				module -> {
