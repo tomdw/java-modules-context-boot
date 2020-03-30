@@ -11,10 +11,6 @@
 
 	<artifactId>java-modules-context-boot-starter</artifactId>
 
-	<properties>
-		<spring-boot.version>2.2.6.RELEASE</spring-boot.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.github.tomdw.java.modules.spring</groupId>
@@ -23,12 +19,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring-boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
