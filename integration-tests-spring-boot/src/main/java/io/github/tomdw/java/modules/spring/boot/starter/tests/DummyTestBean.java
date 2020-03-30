@@ -1,4 +1,4 @@
-package io.github.tomdw.java.modules.context.boot.starter.test.app;
+package io.github.tomdw.java.modules.spring.boot.starter.tests;
 
 import org.springframework.stereotype.Component;
 
