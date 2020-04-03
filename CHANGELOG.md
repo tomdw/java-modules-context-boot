@@ -1,3 +1,6 @@
+# 0.0.4
+- Introduce Spring Boot Starter to enable standard spring boot application complemented with more isolated modules with their own spring context
+
 # 0.0.3
 - Implement workaround for JDK bug https://bugs.openjdk.java.net/browse/JDK-8241770
 - Upgrade spring version

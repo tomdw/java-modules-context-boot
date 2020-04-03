@@ -12,7 +12,7 @@ The [Boot Spring Context within each Java 11 Module](https://devcreativity.wordp
 
 ## Requirements
 
-- uses Spring as automatic modules
+- uses Spring as automatic modules or spring boot with the starter
 - build and run using jdk11 on the modulepath
 
 ## Maven Dependency
@@ -23,7 +23,7 @@ The dependency to use is
 <dependency>
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 </dependency>
 ```
 
@@ -80,6 +80,27 @@ When you want to control when the modules get booted with spring contexts you ca
 ModuleContextBooter.boot();
 ```
 from anywhere in your project's code.
+
+### Using the Spring Boot Starter
+
+The dependency to use is
+
+```xml
+<dependency>
+	<groupId>io.github.tomdw.java.modules.spring</groupId>
+	<artifactId>java-modules-context-boot-starter</artifactId>
+	<version>0.0.4</version>
+</dependency>
+```
+
+which provides you with a java module named 
+
+`be.aca.platform.java.modules.context.boot.starter`
+
+and which is a standard Spring Boot starter that automatically triggers `ModuleContextBooter.boot()`.
+
+This alternative enables applications that are standard spring boot applications running on the modulepath to easily integrate other modules which define their own ModuleContext for better isolation.
+
 
 ## Integrating modules using services
 
