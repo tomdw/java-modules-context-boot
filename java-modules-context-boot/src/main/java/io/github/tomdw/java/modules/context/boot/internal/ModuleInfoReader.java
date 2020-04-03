@@ -21,7 +21,10 @@ import org.springframework.asm.Opcodes;
  * This class forks the patch attached to the issue.
  *
  * Also logged: https://issues.apache.org/jira/browse/SUREFIRE-1765 as it is maven surefire that puts
- * test-classes and other things on the classpath and thus triggers this problem.
+ * explicit modules with a module-info.class on the classpath and thus triggers this problem.
+ *
+ * After JDK bug has been fixed removing this class and replace its usage with module.isAnnotationPresent
+ * and module.getAnnotation should be possible.
  */
 public class ModuleInfoReader {
 
@@ -43,14 +46,17 @@ public class ModuleInfoReader {
 		this.module = module;
 	}
 
+	// code extracted from JDK with patch in https://bugs.openjdk.java.net/browse/JDK-8241770 applied
 	public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
 		return moduleInfoClass(module) != null && moduleInfoClass(module).isAnnotationPresent(annotationClass);
 	}
 
+	// code extracted from JDK with patch in https://bugs.openjdk.java.net/browse/JDK-8241770 applied
 	public <ANNOTATION extends Annotation> ANNOTATION  getAnnotation(Class<ANNOTATION> annotationClass) {
 		return moduleInfoClass(module) != null ? moduleInfoClass(module).getAnnotation(annotationClass) : null;
 	}
 
+	// code extracted from JDK with patch in https://bugs.openjdk.java.net/browse/JDK-8241770 applied
 	private Class<?> moduleInfoClass(Module module) {
 		if (moduleInfoClazz == null) {
 			PrivilegedAction<Class<?>> pa = () -> loadModuleInfoClass(module);
@@ -59,6 +65,7 @@ public class ModuleInfoReader {
 		return moduleInfoClazz;
 	}
 
+	// code extracted from JDK with patch in https://bugs.openjdk.java.net/browse/JDK-8241770 applied
 	private Class<?> loadModuleInfoClass(Module module) {
 		Class<?> clazz = null;
 		try (InputStream in = module.getResourceAsStream("module-info.class")) {
@@ -68,6 +75,7 @@ public class ModuleInfoReader {
 		return clazz;
 	}
 
+	// code extracted from JDK with patch in https://bugs.openjdk.java.net/browse/JDK-8241770 applied
 	private Class<?> loadModuleInfoClass(InputStream in, Module module) throws IOException {
 		final String MODULE_INFO = "module-info";
 
