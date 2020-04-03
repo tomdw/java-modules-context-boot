@@ -12,7 +12,7 @@ The [Boot Spring Context within each Java 11 Module](https://devcreativity.wordp
 
 ## Requirements
 
-- uses Spring 5.1.13.RELEASE as automatic modules
+- uses Spring as automatic modules
 - build and run using jdk11 on the modulepath
 
 ## Maven Dependency
@@ -23,7 +23,7 @@ The dependency to use is
 <dependency>
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 </dependency>
 ```
 

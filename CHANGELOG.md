@@ -1,3 +1,10 @@
+# 0.0.3
+- Implement workaround for JDK bug https://bugs.openjdk.java.net/browse/JDK-8241770
+- Upgrade spring version
+- Upgrade test dependencies
+- Centralise dependency management in poms
+- Use java-modules-parent 0.0.3
+
 # 0.0.2
 - Upgrade spring version
 - Support for generics in an object inside a list
