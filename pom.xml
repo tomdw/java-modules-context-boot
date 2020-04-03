@@ -11,7 +11,7 @@
 
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot-build</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<modules>
 		<module>java-modules-context-boot</module>
 		<module>java-modules-context-boot-starter</module>

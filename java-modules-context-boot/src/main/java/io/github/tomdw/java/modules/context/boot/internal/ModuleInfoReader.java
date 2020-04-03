@@ -21,7 +21,10 @@ import org.springframework.asm.Opcodes;
  * This class forks the patch attached to the issue.
  *
  * Also logged: https://issues.apache.org/jira/browse/SUREFIRE-1765 as it is maven surefire that puts
- * test-classes and other things on the classpath and thus triggers this problem.
+ * explicit modules with a module-info.class on the classpath and thus triggers this problem.
+ *
+ * After JDK bug has been fixed removing this class and replace its usage with module.isAnnotationPresent
+ * and module.getAnnotation should be possible.
  */
 public class ModuleInfoReader {
 

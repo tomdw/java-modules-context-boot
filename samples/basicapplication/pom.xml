@@ -10,7 +10,7 @@
 
 	<groupId>io.github.tomdw.java.modules.spring.samples.basicapplication</groupId>
 	<artifactId>basic-application</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
