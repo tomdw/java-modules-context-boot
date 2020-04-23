@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.GenericApplicationContext;
@@ -14,13 +15,15 @@ import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.
 
 public class JavaModulesSpringContextBootIntegrationTest {
 
-	@BeforeAll
-	public static void boot() {
-		ModuleContextBooter.main();
+	@AfterEach
+	public void reset() {
+		ModuleContextBooter.reset();
 	}
 
 	@Test
 	public void createsSpringApplicationContextForEveryModuleWithModuleContextAnnotation() {
+		ModuleContextBooter.main();
+
 		String[] expectedModuleNames = {"io.github.tomdw.java.modules.spring.samples.basicapplication.application",
 				"io.github.tomdw.java.modules.spring.samples.basicapplication.speaker",
 				"io.github.tomdw.java.modules.spring.integration.tests"};
@@ -39,6 +42,8 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void singleServiceFromOtherModuleCanBeInjectedUsingModuleServiceReference() {
+		ModuleContextBooter.main();
+
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
 		assertThat(testConfig).isNotNull();
 
@@ -48,6 +53,8 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void serviceListFromOtherModuleCanBeInjectedUsingModuleServiceReference() {
+		ModuleContextBooter.main();
+
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
 		assertThat(testConfig).isNotNull();
 
@@ -57,6 +64,8 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void singleServiceFromOtherModuleCanBeRetrievedSpecificallyOnBeanName() {
+		ModuleContextBooter.main();
+
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
 		assertThat(testConfig).isNotNull();
 
@@ -65,6 +74,8 @@ public class JavaModulesSpringContextBootIntegrationTest {
 
 	@Test
 	public void serviceListFromOtherModuleWithGenericsCanBeInjectedUsingModuleServiceReference() {
+		ModuleContextBooter.main();
+
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
 		assertThat(testConfig).isNotNull();
 

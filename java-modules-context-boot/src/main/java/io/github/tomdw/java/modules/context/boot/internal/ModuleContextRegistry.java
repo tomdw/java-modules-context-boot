@@ -19,6 +19,10 @@ public class ModuleContextRegistry {
 
 	private ModuleContextRegistry() {}
 
+	public static void reset() {
+		moduleContexts.clear();
+	}
+
 	private static GenericApplicationContext register(Module module, GenericApplicationContext applicationContext) {
 		synchronized (moduleContexts) {
 			LOGGER.log(INFO, "Registering spring application context for module " + module.getName());

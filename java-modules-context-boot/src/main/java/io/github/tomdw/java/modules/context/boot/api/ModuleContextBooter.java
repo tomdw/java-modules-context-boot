@@ -10,6 +10,10 @@ public class ModuleContextBooter {
 		ModuleContextRegistry.boot();
 	}
 
+	public static void reset() {
+		ModuleContextRegistry.reset();
+	}
+
 	public static GenericApplicationContext getContextFor(Module module) {
 		return ModuleContextRegistry.getContextFor(module);
 	}
