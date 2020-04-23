@@ -49,21 +49,19 @@ public class ModuleContextRegistry {
 		}
 	}
 
-	private static GenericApplicationContext get() {
-		return get(getCallerModule());
-	}
-
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass) {
-		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName());
-		GenericApplicationContext context = get();
-		lazyStartApplicationContextForModule(context, serviceClass.getModule());
+		Module moduleToRetrieveFrom = getCallerModule();
+		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName());
+		GenericApplicationContext context = get(moduleToRetrieveFrom);
+		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom);
 		return context.getBean(serviceClass);
 	}
 
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass, String serviceName) {
-		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + serviceClass.getModule().getName() + "with name " + serviceName);
-		GenericApplicationContext context = get();
-		lazyStartApplicationContextForModule(context, serviceClass.getModule());
+		Module moduleToRetrieveFrom = getCallerModule();
+		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName() + "with name " + serviceName);
+		GenericApplicationContext context = get(moduleToRetrieveFrom);
+		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom);
 		return context.getBean(serviceName, serviceClass);
 	}
 
