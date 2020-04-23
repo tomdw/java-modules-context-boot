@@ -34,16 +34,20 @@ public class ModuleContextRegistry {
 		}
 	}
 
-	private static GenericApplicationContext get(Module module) {
+	private static GenericApplicationContext getOrPrepareContextFor(Module module) {
+		prepareApplicationContextForModuleIfNeeded(module);
+		synchronized (moduleContexts) {
+			return moduleContexts.get(module);
+		}
+	}
+
+	private static void prepareApplicationContextForModuleIfNeeded(Module module) {
 		if (ModuleInfoReader.of(module).isAnnotationPresent(ModuleContext.class)) {
-			GenericApplicationContext contextForModule;
 			synchronized (moduleContexts) {
-				contextForModule = moduleContexts.get(module);
+				if (!moduleContexts.containsKey(module)) {
+					prepareApplicationContextFor(module);
+				}
 			}
-			if (contextForModule == null) {
-				contextForModule = prepareApplicationContextFor(module);
-			}
-			return contextForModule;
 		} else {
 			throw new UnsupportedOperationException("Can only get an application context for a Module annotated with @ModuleContext");
 		}
@@ -52,7 +56,7 @@ public class ModuleContextRegistry {
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass) {
 		Module moduleToRetrieveFrom = getCallerModule();
 		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName());
-		GenericApplicationContext context = get(moduleToRetrieveFrom);
+		GenericApplicationContext context = getOrPrepareContextFor(moduleToRetrieveFrom);
 		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom);
 		return context.getBean(serviceClass);
 	}
@@ -60,7 +64,7 @@ public class ModuleContextRegistry {
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass, String serviceName) {
 		Module moduleToRetrieveFrom = getCallerModule();
 		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName() + "with name " + serviceName);
-		GenericApplicationContext context = get(moduleToRetrieveFrom);
+		GenericApplicationContext context = getOrPrepareContextFor(moduleToRetrieveFrom);
 		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom);
 		return context.getBean(serviceName, serviceClass);
 	}
@@ -76,7 +80,7 @@ public class ModuleContextRegistry {
 		LOGGER.log(INFO, "Preparing modular spring application");
 		for (Module module : layer.modules()) {
 			if (ModuleInfoReader.of(module).isAnnotationPresent(ModuleContext.class)) {
-				prepareApplicationContextFor(module);
+				prepareApplicationContextForModuleIfNeeded(module);
 			}
 		}
 	}
@@ -151,6 +155,6 @@ public class ModuleContextRegistry {
 	}
 
 	public static GenericApplicationContext getContextFor(Module module) {
-		return get(module);
+		return getOrPrepareContextFor(module);
 	}
 }

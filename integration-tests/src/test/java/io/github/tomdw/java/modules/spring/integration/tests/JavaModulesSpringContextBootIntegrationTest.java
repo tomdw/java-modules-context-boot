@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.support.GenericApplicationContext;
 
 import io.github.tomdw.java.modules.context.boot.api.ModuleContextBooter;
+import io.github.tomdw.java.modules.context.boot.api.ModuleServiceProvider;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerService;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 
 public class JavaModulesSpringContextBootIntegrationTest {
 
@@ -83,6 +85,26 @@ public class JavaModulesSpringContextBootIntegrationTest {
 		assertThat(testConfig.getMultipleSpeakerWithGenericsServices().get(0).getMultipleSpeakerName()).asString().isEqualTo("myMultipleGenericSpeakerName");
 	}
 
+
+	@Test
+	public void usingModuleServiceProviderBeforeExplicitBootIsSupported() {
+		SpeakerService singleSpeakerService = ModuleServiceProvider.provide(SpeakerService.class);
+		assertThat(singleSpeakerService).isNotNull();
+
+		ModuleContextBooter.boot();
+
+		GenericApplicationContext contextForModule = ModuleContextBooter.getContextFor(SpeakerService.class.getModule());
+		assertThat(contextForModule).isNotNull();
+	}
+
+	@Test
+	public void bootingModuleContextBooterMultipleTimesIsNotAProblem() {
+		ModuleContextBooter.boot();
+		ModuleContextBooter.boot();
+
+		GenericApplicationContext contextForModule = ModuleContextBooter.getContextFor(SpeakerService.class.getModule());
+		assertThat(contextForModule).isNotNull();
+	}
 
 
 }
