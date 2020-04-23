@@ -104,7 +104,7 @@ public class ModuleContextRegistry {
 		GenericApplicationContext context = instantiateApplicationContext(moduleContext);
 		AnnotationConfigRegistry annotationConfigRegistry = asAnnotationConfigRegistry(context);
 		annotationConfigRegistry.register(mainConfigurationClass);
-		annotationConfigRegistry.register(ModuleServiceReferenceAnnotationPostProcessorConfiguration.class);
+		annotationConfigRegistry.register(ModuleServiceReferenceAnnotationPostProcessor.class);
 		return register(module, context);
 	}
 
