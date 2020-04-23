@@ -26,6 +26,9 @@ public class ModuleContextRegistry {
 	private static GenericApplicationContext register(Module module, GenericApplicationContext applicationContext) {
 		synchronized (moduleContexts) {
 			LOGGER.log(INFO, "Registering spring application context for module " + module.getName());
+			if (moduleContexts.containsKey(module)) {
+				throw new IllegalStateException("An application context for module " + module.getName() + " was already registered");
+			}
 			moduleContexts.put(module, applicationContext);
 			return applicationContext;
 		}
