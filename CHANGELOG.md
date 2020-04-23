@@ -1,5 +1,12 @@
 # 0.0.4
+## Features
 - Introduce Spring Boot Starter to enable standard spring boot application complemented with more isolated modules with their own spring context
+## Bug fixes
+- Some logging statements logged the wrong Module name for which services where retrieved
+- Make sure registering a new application context for the same module is not possible
+- Make sure triggering ModuleContextBooter.boot multiple times does not register application contexts multiple times
+- Make sure using ModuleServiceProvider.provide is possible before an explicit ModuleContextBooter.boot without multiple application contexts as result
+- Get rid of the INFO log statement for the ModuleServiceReferenceAnnotationPostProcessorConfiguration not being eligible for post processing
 
 # 0.0.3
 - Implement workaround for JDK bug https://bugs.openjdk.java.net/browse/JDK-8241770
