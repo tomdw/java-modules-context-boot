@@ -1,6 +1,10 @@
 # 0.0.4
 ## Features
 - Introduce Spring Boot Starter to enable standard spring boot application complemented with more isolated modules with their own spring context
+- Make Spring Boot starter act as an ApplicationContextInitializer to get Module Contexts booted as early as possible. 
+- Introduce default application context to retrieve beans from when the Module has no @ModuleContext.
+- Spring Boot starter sets the main spring boot context as default application context (e.g. enables using ModuleServiceProvider from spring boot context modules).
+
 ## Bug fixes
 - Some logging statements logged the wrong Module name for which services where retrieved
 - Make sure registering a new application context for the same module is not possible

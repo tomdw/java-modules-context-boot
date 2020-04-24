@@ -16,10 +16,12 @@ public class ModuleContextRegistry {
 	private static final System.Logger LOGGER = System.getLogger(ModuleContextRegistry.class.getName());
 
 	private static final Map<Module, GenericApplicationContext> moduleContexts = new HashMap<>();
+	private static GenericApplicationContext defaultApplicationContext;
 
 	private ModuleContextRegistry() {}
 
 	public static void reset() {
+		defaultApplicationContext = null;
 		moduleContexts.clear();
 	}
 
@@ -37,7 +39,14 @@ public class ModuleContextRegistry {
 	private static GenericApplicationContext getOrPrepareContextFor(Module module) {
 		prepareApplicationContextForModuleIfNeeded(module);
 		synchronized (moduleContexts) {
-			return moduleContexts.get(module);
+			if (moduleContexts.containsKey(module)) {
+				return moduleContexts.get(module);
+			} else if (defaultApplicationContext != null) {
+				return defaultApplicationContext;
+			} else {
+				throw new IllegalStateException("No Application context found for module " + module.getName());
+			}
+
 		}
 	}
 
@@ -48,8 +57,6 @@ public class ModuleContextRegistry {
 					prepareApplicationContextFor(module);
 				}
 			}
-		} else {
-			throw new UnsupportedOperationException("Can only get an application context for a Module annotated with @ModuleContext");
 		}
 	}
 
@@ -104,6 +111,11 @@ public class ModuleContextRegistry {
 
 	public static void boot() {
 		boot(ModuleLayer.boot());
+	}
+
+	public static void boot(GenericApplicationContext defaultApplicationContext) {
+		ModuleContextRegistry.defaultApplicationContext = defaultApplicationContext;
+		boot();
 	}
 
 	private static GenericApplicationContext prepareApplicationContextFor(Module module) {

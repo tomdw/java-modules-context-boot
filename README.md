@@ -97,7 +97,8 @@ which provides you with a java module named
 
 `be.aca.platform.java.modules.context.boot.starter`
 
-and which is a standard Spring Boot starter that automatically triggers `ModuleContextBooter.boot()`.
+and which is a standard Spring Boot starter that automatically triggers `ModuleContextBooter.boot(springBootApplicationContext)`.
+The framework uses the given `springBootApplicationContext` as default application context when retrieving beans for a Module.
 
 This alternative enables applications that are standard spring boot applications running on the modulepath to easily integrate other modules which define their own ModuleContext for better isolation.
 

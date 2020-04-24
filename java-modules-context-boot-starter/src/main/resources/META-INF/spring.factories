@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.tomdw.java.modules.context.boot.starter.JavaModulesContextBootAutoConfiguration
+org.springframework.context.ApplicationContextInitializer=io.github.tomdw.java.modules.context.boot.starter.JavaModulesContextBootApplicationContextInitializer

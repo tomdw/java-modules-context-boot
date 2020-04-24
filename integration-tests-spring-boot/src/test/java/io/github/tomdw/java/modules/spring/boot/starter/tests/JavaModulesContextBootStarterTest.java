@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
 import io.github.tomdw.java.modules.context.boot.api.ModuleContextBooter;
+import io.github.tomdw.java.modules.context.boot.api.ModuleServiceProvider;
 
 @SpringBootTest(classes = SpringBootTestApplication.class)
 public class JavaModulesContextBootStarterTest {
@@ -41,4 +42,15 @@ public class JavaModulesContextBootStarterTest {
 				}
 		);
 	}
+
+	@Test
+	public void moduleServiceProviderLooksForBeansInMainSpringBootContextWhenCallingModuleHasNoModuleContextAnnotation() {
+		DummyTestBean providedBean = ModuleServiceProvider.provide(DummyTestBean.class);
+		assertThat(providedBean).isNotNull();
+
+		GenericApplicationContext contextForMainSpringBootModules = ModuleContextBooter.getContextFor(DummyTestBean.class.getModule());
+		assertThat(contextForMainSpringBootModules).isSameAs(applicationContext);
+	}
+
+
 }
