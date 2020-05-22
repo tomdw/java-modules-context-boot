@@ -123,6 +123,7 @@ public class ModuleContextRegistry {
 		Class<?> mainConfigurationClass = moduleContext.mainConfigurationClass();
 		LOGGER.log(INFO, "Preparing ApplicationContext for Module " + module.getName() + " using config class " + mainConfigurationClass.getSimpleName());
 		GenericApplicationContext context = instantiateApplicationContext(moduleContext);
+		context.setId("module-context-" + module.getName());
 		AnnotationConfigRegistry annotationConfigRegistry = asAnnotationConfigRegistry(context);
 		annotationConfigRegistry.register(mainConfigurationClass);
 		annotationConfigRegistry.register(ModuleServiceReferenceAnnotationPostProcessor.class);
