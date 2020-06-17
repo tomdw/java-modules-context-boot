@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD,ElementType.PARAMETER})
 @Autowired
 public @interface ModuleServiceReference {
 }

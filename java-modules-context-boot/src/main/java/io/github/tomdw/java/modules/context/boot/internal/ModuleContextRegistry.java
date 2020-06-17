@@ -115,6 +115,7 @@ public class ModuleContextRegistry {
 
 	public static void boot(GenericApplicationContext defaultApplicationContext) {
 		ModuleContextRegistry.defaultApplicationContext = defaultApplicationContext;
+		enhanceApplicationContext(defaultApplicationContext);
 		boot();
 	}
 
@@ -126,8 +127,13 @@ public class ModuleContextRegistry {
 		context.setId("module-context-" + module.getName());
 		AnnotationConfigRegistry annotationConfigRegistry = asAnnotationConfigRegistry(context);
 		annotationConfigRegistry.register(mainConfigurationClass);
-		annotationConfigRegistry.register(ModuleServiceReferenceAnnotationPostProcessor.class);
+		enhanceApplicationContext(context);
 		return register(module, context);
+	}
+
+	private static void enhanceApplicationContext(GenericApplicationContext context) {
+		AnnotationConfigRegistry annotationConfigRegistry = asAnnotationConfigRegistry(context);
+		annotationConfigRegistry.register(ModuleServiceReferenceAnnotationPostProcessor.class);
 	}
 
 	private static GenericApplicationContext instantiateApplicationContext(ModuleContext moduleContext) {

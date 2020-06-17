@@ -5,6 +5,8 @@
 - Introduce default application context to retrieve beans from when the Module has no @ModuleContext.
 - Spring Boot starter sets the main spring boot context as default application context (e.g. enables using ModuleServiceProvider from spring boot context modules).
 - Set Application Context Id to include the java module name. Allows usefull visualisation in e.g. IntelliJ spring support.
+- Also support @ModuleServiceReference in the default application context (i.e. which is the main spring boot application context when used with the spring boot starter)
+- Support using @ModuleServiceReference on constructor parameters for constructor injection of services loaded from other module contexts
 
 ## Bug fixes
 - Some logging statements logged the wrong Module name for which services where retrieved

@@ -52,5 +52,12 @@ public class JavaModulesContextBootStarterTest {
 		assertThat(contextForMainSpringBootModules).isSameAs(applicationContext);
 	}
 
+	@Test
+	public void moduleServiceReferenceAnnotationAlsoInjectsServicesLoadedFromOtherModulesInMainSpringBootContext() {
+		DummyTestBean dummyTestBean = applicationContext.getBean(DummyTestBean.class);
+		assertThat(dummyTestBean).isNotNull();
+		assertThat(dummyTestBean.getSpeakerService()).isNotNull();
+	}
+
 
 }

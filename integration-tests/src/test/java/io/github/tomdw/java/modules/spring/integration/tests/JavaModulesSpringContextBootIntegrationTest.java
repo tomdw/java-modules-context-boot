@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.GenericApplicationContext;
 
@@ -43,7 +42,7 @@ public class JavaModulesSpringContextBootIntegrationTest {
 	}
 
 	@Test
-	public void singleServiceFromOtherModuleCanBeInjectedUsingModuleServiceReference() {
+	public void singleServiceFromOtherModuleCanBeInjectedUsingModuleServiceReferenceOnField() {
 		ModuleContextBooter.main();
 
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
@@ -54,7 +53,7 @@ public class JavaModulesSpringContextBootIntegrationTest {
 	}
 
 	@Test
-	public void serviceListFromOtherModuleCanBeInjectedUsingModuleServiceReference() {
+	public void serviceListFromOtherModuleCanBeInjectedUsingModuleServiceReferenceOnField() {
 		ModuleContextBooter.main();
 
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
@@ -65,7 +64,7 @@ public class JavaModulesSpringContextBootIntegrationTest {
 	}
 
 	@Test
-	public void singleServiceFromOtherModuleCanBeRetrievedSpecificallyOnBeanName() {
+	public void singleServiceFromOtherModuleCanBeRetrievedSpecificallyOnBeanNameOnField() {
 		ModuleContextBooter.main();
 
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
@@ -75,10 +74,53 @@ public class JavaModulesSpringContextBootIntegrationTest {
 	}
 
 	@Test
-	public void serviceListFromOtherModuleWithGenericsCanBeInjectedUsingModuleServiceReference() {
+	public void serviceListFromOtherModuleWithGenericsCanBeInjectedUsingModuleServiceReferenceOnField() {
 		ModuleContextBooter.main();
 
 		IntegrationTestService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestService.class);
+		assertThat(testConfig).isNotNull();
+
+		assertThat(testConfig.getMultipleSpeakerWithGenericsServices()).withFailMessage("No MultipleSpeakerWithGenericsService(s) injected").isNotNull();
+		assertThat(testConfig.getMultipleSpeakerWithGenericsServices().get(0).getMultipleSpeakerName()).asString().isEqualTo("myMultipleGenericSpeakerName");
+	}
+
+	@Test
+	public void singleServiceFromOtherModuleCanBeInjectedUsingModuleServiceReferenceOnConstructorParameter() {
+		ModuleContextBooter.main();
+
+		IntegrationTestUsingConstructorInjectionService testConfig = IntegrationTestUsingConstructorInjectionService.getApplicationContext().getBean(IntegrationTestUsingConstructorInjectionService.class);
+		assertThat(testConfig).isNotNull();
+
+		assertThat(testConfig.getSpeakerService()).withFailMessage("No SpeakerService injected").isNotNull();
+		assertThat(testConfig.getSpeakerService().getName()).withFailMessage("Wrong SpeakerService injected").isEqualTo("Default");
+	}
+
+	@Test
+	public void serviceListFromOtherModuleCanBeInjectedUsingModuleServiceReferenceOnConstructorParameter() {
+		ModuleContextBooter.main();
+
+		IntegrationTestUsingConstructorInjectionService testConfig = IntegrationTestService.getApplicationContext().getBean(IntegrationTestUsingConstructorInjectionService.class);
+		assertThat(testConfig).isNotNull();
+
+		assertThat(testConfig.getMultipleSpeakerServices()).withFailMessage("No MultipleSpeakerService(s) injected").isNotNull();
+		assertThat(testConfig.getMultipleSpeakerServices().stream().map(MultipleSpeakerService::getName)).containsExactlyInAnyOrder("Default", "Other");
+	}
+
+	@Test
+	public void singleServiceFromOtherModuleCanBeRetrievedSpecificallyOnBeanNameOnConstructorParameter() {
+		ModuleContextBooter.main();
+
+		IntegrationTestUsingConstructorInjectionService testConfig = IntegrationTestUsingConstructorInjectionService.getApplicationContext().getBean(IntegrationTestUsingConstructorInjectionService.class);
+		assertThat(testConfig).isNotNull();
+
+		assertThat(testConfig.getNamedSpeakerService().getSpeakerName()).isEqualTo("otherNamedSpeakerServiceName");
+	}
+
+	@Test
+	public void serviceListFromOtherModuleWithGenericsCanBeInjectedUsingModuleServiceReferenceOnConstructorParameter() {
+		ModuleContextBooter.main();
+
+		IntegrationTestUsingConstructorInjectionService testConfig = IntegrationTestUsingConstructorInjectionService.getApplicationContext().getBean(IntegrationTestUsingConstructorInjectionService.class);
 		assertThat(testConfig).isNotNull();
 
 		assertThat(testConfig.getMultipleSpeakerWithGenericsServices()).withFailMessage("No MultipleSpeakerWithGenericsService(s) injected").isNotNull();
