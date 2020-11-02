@@ -134,6 +134,9 @@ public class ModuleContextRegistry {
 	private static void enhanceApplicationContext(GenericApplicationContext context) {
 		AnnotationConfigRegistry annotationConfigRegistry = asAnnotationConfigRegistry(context);
 		annotationConfigRegistry.register(ModuleServiceReferenceAnnotationPostProcessor.class);
+		if (defaultApplicationContext != null && context != defaultApplicationContext) {
+			context.setEnvironment(defaultApplicationContext.getEnvironment());
+		}
 	}
 
 	private static GenericApplicationContext instantiateApplicationContext(ModuleContext moduleContext) {
