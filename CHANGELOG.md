@@ -17,6 +17,12 @@
 - Make sure using ModuleServiceProvider.provide is possible before an explicit ModuleContextBooter.boot without multiple application contexts as result
 - Get rid of the INFO log statement for the ModuleServiceReferenceAnnotationPostProcessorConfiguration not being eligible for post processing
 
+## Dependencies
+- Updated Spring to 5.2.8.RELEASE
+- Updated Spring boot to 2.3.3.RELEASE
+- Updated Junit to 5.6.2
+- Updated AssertJ to 3.17.0
+
 # 0.0.3
 - Implement workaround for JDK bug https://bugs.openjdk.java.net/browse/JDK-8241770
 - Upgrade spring version
