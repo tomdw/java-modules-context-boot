@@ -181,6 +181,12 @@ The difference is that we cannot inject by type, because of generics limitations
 To support this, we are registring the list of provided services with a bean name. By convention this name will be the type of the services suffixed by "List".
 When injecting the service list you should use the @Named or @Qualifier annotation to specify the name following this naming convention.
 
+### Sharing Spring Environment
+When a default application context is provided, it's Environment will be shared with all other contexts. This allows all contexts to share configuration, including configuration set in tests.  
+
+### Using in combination with @DirtiesContext
+When using this framework in combination wtih DirtiesContext, the registry should be reset whenever the spring context is refreshed. Call `ModuleContextBooter.reset()` whenever the context is refreshed (e.g. in @AfterAll when DirtiesContext runs after each class).
+
 ## Samples
 - Under 'samples' the 'basicapplication' sample shows this in a working hello world application.
 	- follow the instructions regarding the java toolchains from the [java-modules-parent project](https://github.com/tomdw/java-modules-parent)
