@@ -8,6 +8,7 @@
 - Also support @ModuleServiceReference in the default application context (i.e. which is the main spring boot application context when used with the spring boot starter)
 - Support using @ModuleServiceReference on constructor parameters for constructor injection of services loaded from other module contexts
 - The Environment of the default spring context is now shared with all other context. This allows other contexts to also read spring properties.
+- An exception is thrown when trying to load a bean from the default application context before it is active
 
 ## Bug fixes
 - Some logging statements logged the wrong Module name for which services where retrieved

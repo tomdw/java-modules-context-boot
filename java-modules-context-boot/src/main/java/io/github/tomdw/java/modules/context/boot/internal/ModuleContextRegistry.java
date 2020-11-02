@@ -64,7 +64,7 @@ public class ModuleContextRegistry {
 		Module moduleToRetrieveFrom = getCallerModule();
 		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName());
 		GenericApplicationContext context = getOrPrepareContextFor(moduleToRetrieveFrom);
-		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom);
+		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom, serviceClass);
 		return context.getBean(serviceClass);
 	}
 
@@ -72,12 +72,15 @@ public class ModuleContextRegistry {
 		Module moduleToRetrieveFrom = getCallerModule();
 		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName() + "with name " + serviceName);
 		GenericApplicationContext context = getOrPrepareContextFor(moduleToRetrieveFrom);
-		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom);
+		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom, serviceClass);
 		return context.getBean(serviceName, serviceClass);
 	}
 
-	private static void lazyStartApplicationContextForModule(GenericApplicationContext context, Module module) {
+	private static <SERVICETYPE> void lazyStartApplicationContextForModule(GenericApplicationContext context, Module module, Class<SERVICETYPE> serviceClass) {
 		if (!context.isActive()) {
+			if (context.equals(defaultApplicationContext)) {
+				throw new InactiveDefaultApplicationContextException(module, serviceClass);
+			}
 			LOGGER.log(INFO, "Lazy starting ApplicationContext for module " + module.getName());
 			context.refresh();
 		}
