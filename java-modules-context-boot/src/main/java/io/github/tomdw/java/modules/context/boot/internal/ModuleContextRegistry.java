@@ -1,5 +1,6 @@
 package io.github.tomdw.java.modules.context.boot.internal;
 
+import static java.lang.System.Logger.Level.DEBUG;
 import static java.lang.System.Logger.Level.INFO;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +27,7 @@ public class ModuleContextRegistry {
 
 	private static void register(Module module, GenericApplicationContext applicationContext) {
 		synchronized (moduleContexts) {
-			LOGGER.log(INFO, "Registering spring application context for module " + module.getName());
+			LOGGER.log(DEBUG, "Registering spring application context for module " + module.getName());
 			if (moduleContexts.containsKey(module)) {
 				throw new IllegalStateException("An application context for module " + module.getName() + " was already registered");
 			}
