@@ -128,6 +128,20 @@ public class DefaultSpeakerService implements SpeakerService {
 
 ```
 
+If you have 2 services of the same type (for instance a datasource), you can provide the proper service using the bean name as follows:
+```
+public class SpeakerServiceProvider {
+
+	public static SpeakerService provider() {
+		return ModuleServiceProvider.provide(SpeakerService.class, "speaker-service-bean-name");
+	}
+
+	private SpeakerServiceProvider() {
+		//must not be constructed
+	}
+}
+```
+
 The ModuleServiceProvider.provide helper method retrieves a bean of the given type from 
 the spring application context associated with the module calling the provide method.
 
