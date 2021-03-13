@@ -35,12 +35,13 @@ abstract class LazyRetrieveBeanFromContextStrategy<SERVICETYPE> implements Invoc
 	}
 
 	SERVICETYPE retrieveInstanceFromContext() {
-		LOGGER.log(DEBUG, "Providing " + logMessageDescribingInstanceToProvide() + " from module " + moduleToRetrieveFrom.getName());
 		if (serviceClass.isInterface()) {
+			LOGGER.log(DEBUG, "Providing dynamic proxy for " + logMessageDescribingInstanceToProvide() + " from module " + moduleToRetrieveFrom.getName());
 			return createDynamicProxyToPostponeContextLoadingUntilInvocationOfService();
 		} else {
 			LOGGER.log(WARNING, "Bean was provided as implementation, better to provide interfaces so dynamic proxies are created: " + serviceClass);
 			lazyStartApplicationContextForModule();
+			LOGGER.log(DEBUG, "Providing " + logMessageDescribingInstanceToProvide() + " from module " + moduleToRetrieveFrom.getName());
 			return getBeanFromContext();
 		}
 	}
