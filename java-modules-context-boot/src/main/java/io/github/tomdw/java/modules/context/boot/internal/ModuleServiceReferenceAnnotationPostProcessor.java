@@ -18,7 +18,6 @@ import org.springframework.beans.factory.config.InstantiationAwareBeanPostProces
 import org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean;
 import org.springframework.beans.factory.serviceloader.ServiceFactoryBean;
 import org.springframework.beans.factory.serviceloader.ServiceListFactoryBean;
-import org.springframework.lang.Nullable;
 
 import io.github.tomdw.java.modules.context.boot.api.ModuleServiceReference;
 
@@ -28,7 +27,6 @@ public class ModuleServiceReferenceAnnotationPostProcessor implements Instantiat
 
 	private ConfigurableBeanFactory beanFactory;
 
-	@Nullable
 	@Override
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
 		Module usingModule = beanClass.getModule();
