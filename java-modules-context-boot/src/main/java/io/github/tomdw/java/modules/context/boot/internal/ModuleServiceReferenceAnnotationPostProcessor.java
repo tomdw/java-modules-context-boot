@@ -14,7 +14,7 @@ import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessorAdapter;
+import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.beans.factory.serviceloader.AbstractServiceLoaderBasedFactoryBean;
 import org.springframework.beans.factory.serviceloader.ServiceFactoryBean;
 import org.springframework.beans.factory.serviceloader.ServiceListFactoryBean;
@@ -23,7 +23,7 @@ import org.springframework.lang.Nullable;
 import io.github.tomdw.java.modules.context.boot.api.ModuleServiceReference;
 
 @Named
-public class ModuleServiceReferenceAnnotationPostProcessor extends InstantiationAwareBeanPostProcessorAdapter implements BeanFactoryAware {
+public class ModuleServiceReferenceAnnotationPostProcessor implements InstantiationAwareBeanPostProcessor, BeanFactoryAware {
 	private static final System.Logger LOGGER = System.getLogger(ModuleServiceReferenceAnnotationPostProcessor.class.getName());
 
 	private ConfigurableBeanFactory beanFactory;
