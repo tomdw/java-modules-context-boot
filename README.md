@@ -31,12 +31,7 @@ which provides you with a java module named
 
 `io.github.tomdw.java.modules.context.boot`
 
-transitively providing read access to spring modules and javax.inject.
-
-**WARNING:** javax.inject is an automatic module without a reserved Automatic-Module-Name. 
-No guarantees are given that its name will not change in future. By requiring it transitively 
-client code of java-modules-context-boot does not need to require javax.inject and the impact is limited
-to the java-modules-context-boot module descriptor.
+transitively providing read access to spring modules and jakarta's java.inject (still in javax.inject package).
 
 ## Define a spring context within a module
 

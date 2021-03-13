@@ -3,7 +3,7 @@ module io.github.tomdw.java.modules.context.boot {
 	requires transitive spring.context;
 	requires transitive spring.beans;
 	requires transitive spring.core;
-	requires transitive javax.inject;
+	requires transitive java.inject;
 
 	opens io.github.tomdw.java.modules.context.boot.internal to spring.beans, spring.core, spring.context;
 }

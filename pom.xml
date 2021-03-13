@@ -22,9 +22,9 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<version.javax.inject>1</version.javax.inject>
 		<version.springframework>5.3.4</version.springframework>
 		<spring-boot.version>2.4.3</spring-boot.version>
+		<version.jakarta.inject>1.0.3</version.jakarta.inject>
 		<version.assertj-core>3.19.0</version.assertj-core>
 		<version.junit-jupiter>5.7.1</version.junit-jupiter>
 	</properties>
@@ -77,9 +77,9 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.inject</groupId>
-				<artifactId>javax.inject</artifactId>
-				<version>${version.javax.inject}</version>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject-api</artifactId>
+				<version>${version.jakarta.inject}</version>
 			</dependency>
 			<!-- test support -->
 			<!-- https://mvnrepository.com/artifact/org.junit/junit-bom -->
