@@ -25,15 +25,15 @@ abstract class LazyRetrieveBeanFromContextStrategy<SERVICETYPE> implements Invoc
 		this.serviceClass = serviceClass;
 	}
 
-	public static <SERVICECLASS> LazyRetrieveBeanFromContextStrategy<SERVICECLASS> withoutServiceName(Module moduleToRetrieveFrom, GenericApplicationContext defaultApplicationContext, GenericApplicationContext context, Class<SERVICECLASS> serviceClass) {
+	static <SERVICECLASS> LazyRetrieveBeanFromContextStrategy<SERVICECLASS> withoutServiceName(Module moduleToRetrieveFrom, GenericApplicationContext defaultApplicationContext, GenericApplicationContext context, Class<SERVICECLASS> serviceClass) {
 		return new LazyRetrieveBeanFromContextWithoutServiceNameStrategy<>(moduleToRetrieveFrom, defaultApplicationContext, context, serviceClass);
 	}
 
-	public static <SERVICECLASS> LazyRetrieveBeanFromContextStrategy<SERVICECLASS> withServiceName(Module moduleToRetrieveFrom, GenericApplicationContext defaultApplicationContext, GenericApplicationContext context, Class<SERVICECLASS> serviceClass, String serviceName) {
+	static <SERVICECLASS> LazyRetrieveBeanFromContextStrategy<SERVICECLASS> withServiceName(Module moduleToRetrieveFrom, GenericApplicationContext defaultApplicationContext, GenericApplicationContext context, Class<SERVICECLASS> serviceClass, String serviceName) {
 		return new LazyRetrieveBeanFromContextWithServiceNameStrategy<>(moduleToRetrieveFrom, defaultApplicationContext, context, serviceClass, serviceName);
 	}
 
-	public SERVICETYPE retrieveInstanceFromContext() {
+	SERVICETYPE retrieveInstanceFromContext() {
 		LOGGER.log(DEBUG, "Providing " + logMessageDescribingInstanceToProvide() + " from module " + moduleToRetrieveFrom.getName());
 		if (serviceClass.isInterface()) {
 			return createDynamicProxyToPostponeContextLoadingUntilInvocationOfService();

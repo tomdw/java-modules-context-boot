@@ -2,11 +2,11 @@ package io.github.tomdw.java.modules.context.boot.internal;
 
 import org.springframework.context.support.GenericApplicationContext;
 
-public class LazyRetrieveBeanFromContextWithServiceNameStrategy<SERVICETYPE> extends LazyRetrieveBeanFromContextStrategy<SERVICETYPE> {
+class LazyRetrieveBeanFromContextWithServiceNameStrategy<SERVICETYPE> extends LazyRetrieveBeanFromContextStrategy<SERVICETYPE> {
 
 	private final String serviceName;
 
-	public LazyRetrieveBeanFromContextWithServiceNameStrategy(Module moduleToRetrieveFrom, GenericApplicationContext defaultApplicationContext, GenericApplicationContext context, Class<SERVICETYPE> serviceClass, String serviceName) {
+	LazyRetrieveBeanFromContextWithServiceNameStrategy(Module moduleToRetrieveFrom, GenericApplicationContext defaultApplicationContext, GenericApplicationContext context, Class<SERVICETYPE> serviceClass, String serviceName) {
 		super(moduleToRetrieveFrom, defaultApplicationContext, context, serviceClass);
 		this.serviceName = serviceName;
 	}
