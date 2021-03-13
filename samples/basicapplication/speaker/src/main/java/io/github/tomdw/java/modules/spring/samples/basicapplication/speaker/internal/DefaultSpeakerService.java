@@ -8,8 +8,8 @@ import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.
 @Named
 public class DefaultSpeakerService implements SpeakerService {
 
-	public static DefaultSpeakerService provider() {
-		return ModuleServiceProvider.provide(DefaultSpeakerService.class);
+	public static SpeakerService provider() {
+		return ModuleServiceProvider.provide(SpeakerService.class);
 	}
 
 	@Override

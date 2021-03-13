@@ -8,8 +8,8 @@ import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.
 @Named
 public class OtherMultipleSpeakerService implements MultipleSpeakerService {
 
-	public static OtherMultipleSpeakerService provider() {
-		return ModuleServiceProvider.provide(OtherMultipleSpeakerService.class);
+	public static MultipleSpeakerService provider() {
+		return ModuleServiceProvider.provide(MultipleSpeakerService.class, "otherMultipleSpeakerService");
 	}
 
 	@Override
