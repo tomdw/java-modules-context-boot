@@ -25,14 +25,13 @@ public class ModuleContextRegistry {
 		moduleContexts.clear();
 	}
 
-	private static GenericApplicationContext register(Module module, GenericApplicationContext applicationContext) {
+	private static void register(Module module, GenericApplicationContext applicationContext) {
 		synchronized (moduleContexts) {
 			LOGGER.log(INFO, "Registering spring application context for module " + module.getName());
 			if (moduleContexts.containsKey(module)) {
 				throw new IllegalStateException("An application context for module " + module.getName() + " was already registered");
 			}
 			moduleContexts.put(module, applicationContext);
-			return applicationContext;
 		}
 	}
 
@@ -122,7 +121,7 @@ public class ModuleContextRegistry {
 		boot();
 	}
 
-	private static GenericApplicationContext prepareApplicationContextFor(Module module) {
+	private static void prepareApplicationContextFor(Module module) {
 		ModuleContext moduleContext = ModuleInfoReader.of(module).getAnnotation(ModuleContext.class);
 		Class<?> mainConfigurationClass = moduleContext.mainConfigurationClass();
 		LOGGER.log(INFO, "Preparing ApplicationContext for Module " + module.getName() + " using config class " + mainConfigurationClass.getSimpleName());
@@ -131,7 +130,7 @@ public class ModuleContextRegistry {
 		AnnotationConfigRegistry annotationConfigRegistry = asAnnotationConfigRegistry(context);
 		annotationConfigRegistry.register(mainConfigurationClass);
 		enhanceApplicationContext(context);
-		return register(module, context);
+		register(module, context);
 	}
 
 	private static void enhanceApplicationContext(GenericApplicationContext context) {
