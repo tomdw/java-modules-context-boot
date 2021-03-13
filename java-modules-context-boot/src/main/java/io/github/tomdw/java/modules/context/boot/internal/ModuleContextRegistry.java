@@ -1,6 +1,5 @@
 package io.github.tomdw.java.modules.context.boot.internal;
 
-import static java.lang.System.Logger.Level.DEBUG;
 import static java.lang.System.Logger.Level.INFO;
 
 import java.lang.reflect.InvocationTargetException;
@@ -61,28 +60,18 @@ public class ModuleContextRegistry {
 
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass) {
 		Module moduleToRetrieveFrom = getCallerModule();
-		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName());
 		GenericApplicationContext context = getOrPrepareContextFor(moduleToRetrieveFrom);
-		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom, serviceClass);
-		return context.getBean(serviceClass);
+		return LazyRetrieveBeanFromContextStrategy
+				.withoutServiceName(moduleToRetrieveFrom, defaultApplicationContext, context, serviceClass)
+				.retrieveInstanceFromContext();
 	}
 
 	public static <SERVICETYPE> SERVICETYPE retrieveInstanceFromContext(Class<SERVICETYPE> serviceClass, String serviceName) {
 		Module moduleToRetrieveFrom = getCallerModule();
-		LOGGER.log(DEBUG, "Providing instance of " + serviceClass.getSimpleName() + " from module " + moduleToRetrieveFrom.getName() + "with name " + serviceName);
 		GenericApplicationContext context = getOrPrepareContextFor(moduleToRetrieveFrom);
-		lazyStartApplicationContextForModule(context, moduleToRetrieveFrom, serviceClass);
-		return context.getBean(serviceName, serviceClass);
-	}
-
-	private static <SERVICETYPE> void lazyStartApplicationContextForModule(GenericApplicationContext context, Module module, Class<SERVICETYPE> serviceClass) {
-		if (!context.isActive()) {
-			if (context.equals(defaultApplicationContext)) {
-				throw new InactiveDefaultApplicationContextException(module, serviceClass);
-			}
-			LOGGER.log(INFO, "Lazy starting ApplicationContext for module " + module.getName());
-			context.refresh();
-		}
+		return LazyRetrieveBeanFromContextStrategy
+				.withServiceName(moduleToRetrieveFrom, defaultApplicationContext, context, serviceClass, serviceName)
+				.retrieveInstanceFromContext();
 	}
 
 	private static void provisionForLayer(ModuleLayer layer) {

@@ -120,13 +120,17 @@ Instead of using a default contructor, leverage the 'provider' factory method al
 @Named
 public class DefaultSpeakerService implements SpeakerService {
 	...
-	public static DefaultSpeakerService provider() {
-		return ModuleServiceProvider.provide(DefaultSpeakerService.class);
+	public static SpeakerService provider() {
+		return ModuleServiceProvider.provide(SpeakerService.class);
 	}
 	...
 }
 
 ```
+
+Best practice is to provide the service with the interface class.
+This way a dynamic proxy is created for consumers. It prevents exceptions while providing instances of beans while certain springContexts are still inactive.
+The actual bean lookup will be performed when this service is invoked.
 
 If you have 2 services of the same type (for instance a datasource), you can provide the proper service using the bean name as follows:
 ```
