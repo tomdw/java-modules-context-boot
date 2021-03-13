@@ -1,8 +1,10 @@
 package io.github.tomdw.java.modules.spring.integration.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,7 +13,10 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import io.github.tomdw.java.modules.context.boot.api.ModuleContextBooter;
 import io.github.tomdw.java.modules.context.boot.api.ModuleServiceProvider;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.FailingSpeakerService;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.MultipleSpeakerService;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.NoSpeakerCheckedException;
+import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.NoSpeakerRuntimeException;
 import io.github.tomdw.java.modules.spring.samples.basicapplication.speaker.api.SpeakerService;
 
 public class JavaModulesSpringContextBootIntegrationTest {
@@ -148,5 +153,15 @@ public class JavaModulesSpringContextBootIntegrationTest {
 		assertThat(contextForModule).isNotNull();
 	}
 
+	@Test
+	public void aDynamicProxiedServiceShouldStillThrowExceptionsAsIfTheServiceIsNotProxiedMeaningExceptionsShouldNotBeWrappedInOtherExceptions() {
+		ModuleContextBooter.main();
+
+		ServiceLoader<FailingSpeakerService> failingSpeakerServiceServiceLoader = ServiceLoader.load(FailingSpeakerService.class);
+		FailingSpeakerService failingSpeakerService = failingSpeakerServiceServiceLoader.findFirst().orElseThrow();
+
+		assertThatThrownBy(failingSpeakerService::getSpeakerNameButThrowsCheckedException).isInstanceOf(NoSpeakerCheckedException.class);
+		assertThatThrownBy(failingSpeakerService::getSpeakerNameButThrowsRuntimeException).isInstanceOf(NoSpeakerRuntimeException.class);
+	}
 
 }

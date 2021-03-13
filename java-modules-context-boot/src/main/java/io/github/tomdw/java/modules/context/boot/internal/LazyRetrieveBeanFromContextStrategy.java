@@ -5,6 +5,7 @@ import static java.lang.System.Logger.Level.INFO;
 import static java.lang.System.Logger.Level.WARNING;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -56,7 +57,11 @@ abstract class LazyRetrieveBeanFromContextStrategy<SERVICETYPE> implements Invoc
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		lazyStartApplicationContextForModule();
 		LOGGER.log(DEBUG, "Resolving dynamic proxy for " + logMessageDescribingInstanceToProvide() + " from ApplicationContext for module " + moduleToRetrieveFrom.getName());
-		return method.invoke(getBeanFromContext(), args);
+		try {
+			return method.invoke(getBeanFromContext(), args);
+		} catch (InvocationTargetException ite) {
+			throw ite.getTargetException();
+		}
 	}
 
 	private void lazyStartApplicationContextForModule() {
