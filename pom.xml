@@ -22,7 +22,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<version.springframework>5.3.4</version.springframework>
+		<version.springframework>5.3.14</version.springframework>
 		<spring-boot.version>2.4.3</spring-boot.version>
 		<version.jakarta.inject>1.0.3</version.jakarta.inject>
 		<version.assertj-core>3.19.0</version.assertj-core>
