@@ -22,11 +22,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<version.springframework>5.3.14</version.springframework>
-		<spring-boot.version>2.4.3</spring-boot.version>
-		<version.jakarta.inject>1.0.3</version.jakarta.inject>
-		<version.assertj-core>3.19.0</version.assertj-core>
-		<version.junit-jupiter>5.7.1</version.junit-jupiter>
+		<version.springframework>5.3.17</version.springframework>
+		<spring-boot.version>2.6.4</spring-boot.version>
+		<version.jakarta.inject>1.0.5</version.jakarta.inject>
+		<version.assertj-core>3.22.0</version.assertj-core>
+		<version.junit-jupiter>5.8.2</version.junit-jupiter>
 	</properties>
 
 	<dependencies>
