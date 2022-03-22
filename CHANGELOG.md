@@ -1,18 +1,7 @@
 # 0.0.5
-## Bugfix
-- Remove workaround for jdk bug https://bugs.openjdk.java.net/browse/JDK-8241770. Minimum jdk 11.0.11 is required from now on. 
-
-## Dependencies
-- Update Spring to 5.3.17
-- Update Spring boot to 2.6.4
-- Update Junit to 5.8.2
-- Update AssertJ to 3.22.0
-- Update jakarta inject-api to 1.0.5
-
-# 0.0.4
 ## Features
 - Introduce Spring Boot Starter to enable standard spring boot application complemented with more isolated modules with their own spring context
-- Make Spring Boot starter act as an ApplicationContextInitializer to get Module Contexts booted as early as possible. 
+- Make Spring Boot starter act as an ApplicationContextInitializer to get Module Contexts booted as early as possible.
 - Introduce default application context to retrieve beans from when the Module has no @ModuleContext.
 - Spring Boot starter sets the main spring boot context as default application context (e.g. enables using ModuleServiceProvider from spring boot context modules).
 - Set Application Context Id to include the java module name. Allows usefull visualisation in e.g. IntelliJ spring support.
@@ -21,7 +10,8 @@
 - The Environment of the default spring context is now shared with all other context. This allows other contexts to also read spring properties.
 - An exception is thrown when trying to load a bean from the default application context before it is active
 
-## Bug fixes
+## Bugfix
+- Remove workaround for jdk bug https://bugs.openjdk.java.net/browse/JDK-8241770. Minimum jdk 11.0.11 is required from now on.
 - Some logging statements logged the wrong Module name for which services where retrieved
 - Make sure registering a new application context for the same module is not possible
 - Make sure triggering ModuleContextBooter.boot multiple times does not register application contexts multiple times
@@ -29,10 +19,11 @@
 - Get rid of the INFO log statement for the ModuleServiceReferenceAnnotationPostProcessorConfiguration not being eligible for post processing
 
 ## Dependencies
-- Updated Spring to 5.2.8.RELEASE
-- Updated Spring boot to 2.3.3.RELEASE
-- Updated Junit to 5.6.2
-- Updated AssertJ to 3.17.0
+- Update Spring to 5.3.17
+- Update Spring boot to 2.6.4
+- Update Junit to 5.8.2
+- Update AssertJ to 3.22.0
+- Update jakarta inject-api to 1.0.5
 
 # 0.0.3
 - Implement workaround for JDK bug https://bugs.openjdk.java.net/browse/JDK-8241770
