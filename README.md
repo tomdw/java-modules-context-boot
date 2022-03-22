@@ -14,6 +14,7 @@ The [Boot Spring Context within each Java 11 Module](https://devcreativity.wordp
 
 - uses Spring as automatic modules or spring boot with the starter
 - build and run using jdk11 on the modulepath
+- Use jdk 11.0.11 or higher because of bug in jdk in earlier versions https://bugs.openjdk.java.net/browse/JDK-8241770.
 
 ## Maven Dependency
 

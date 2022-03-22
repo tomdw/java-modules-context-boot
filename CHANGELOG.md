@@ -1,3 +1,14 @@
+# 0.0.5
+## Bugfix
+- Remove workaround for jdk bug https://bugs.openjdk.java.net/browse/JDK-8241770. Minimum jdk 11.0.11 is required from now on. 
+
+## Dependencies
+- Update Spring to 5.3.17
+- Update Spring boot to 2.6.4
+- Update Junit to 5.8.2
+- Update AssertJ to 3.22.0
+- Update jakarta inject-api to 1.0.5
+
 # 0.0.4
 ## Features
 - Introduce Spring Boot Starter to enable standard spring boot application complemented with more isolated modules with their own spring context
