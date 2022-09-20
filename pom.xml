@@ -11,7 +11,7 @@
 
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot-build</artifactId>
-	<version>0.0.6</version>
+	<version>0.0.7-SNAPSHOT</version>
 	<modules>
 		<module>java-modules-context-boot</module>
 		<module>java-modules-context-boot-starter</module>
@@ -155,8 +155,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-  <scm>
-    <tag>v0.0.6</tag>
-  </scm>
 </project>
