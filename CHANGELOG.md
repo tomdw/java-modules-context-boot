@@ -1,3 +1,10 @@
+# 0.0.6
+## Dependencies
+- Update Spring to 5.3.23
+- Update Spring boot to 2.7.3
+- Update Junit to 5.9.0
+- Update AssertJ to 3.23.1
+
 # 0.0.5
 ## Features
 - Introduce Spring Boot Starter to enable standard spring boot application complemented with more isolated modules with their own spring context

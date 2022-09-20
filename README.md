@@ -24,7 +24,7 @@ The dependency to use is
 <dependency>
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.6</version>
 </dependency>
 ```
 
@@ -85,7 +85,7 @@ The dependency to use is
 <dependency>
 	<groupId>io.github.tomdw.java.modules.spring</groupId>
 	<artifactId>java-modules-context-boot-starter</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 </dependency>
 ```
 
